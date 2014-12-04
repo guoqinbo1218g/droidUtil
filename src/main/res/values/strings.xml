@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="utils_exit_title">您确定退出程序吗?</string>
+    <string name="utils_exit_doubleclick_tips">再按一次返回键退出</string>
+    <string name="utils_crash_exitInfo">:-( 对不起，似乎出现问题了，现在只能退出了</string>
+
+</resources>
