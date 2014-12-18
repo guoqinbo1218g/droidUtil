@@ -12,8 +12,6 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 
-import cn.xddai.chardet.CharsetDetector;
-
 /**
  * <p/>
  * <p/>
@@ -198,45 +196,6 @@ public final class FileUtils {
     }
 
     /**
-     * 默认 UTF-8
-     *
-     * @param fileName
-     * @return
-     * @throws Exception
-     */
-    public static String detectCharset(String fileName) throws IOException {
-        return detectCharset(new File(fileName));
-    }
-
-    /**
-     * 默认 UTF-8
-     *
-     * @param file
-     * @return
-     * @throws Exception
-     */
-    public static String detectCharset(final File file) throws IOException {
-        String retVal = "utf-8";
-        CharsetDetector charDect = new CharsetDetector();
-        String[] probableSet;
-        FileInputStream fis = new FileInputStream(file);
-
-        probableSet = charDect.detectChineseCharset(fis);
-        fis.close();
-
-        if (probableSet != null && probableSet.length != 0) {
-            for (String charset : probableSet) {
-                LogManager.i("charsetdecoder", "probableSet: " + charset);
-            }
-
-            if (!probableSet[0].toLowerCase().contains("utf")) {
-                retVal = probableSet[0];
-            }
-        }
-        return retVal;
-    }
-
-    /**
      * @param file
      * @param fileSize
      * @return 0 创建成功, 并且分配文件大小成功, -1 创建失败, 1 创建成功, 但是分配文件大小失败.
@@ -272,7 +231,7 @@ public final class FileUtils {
                 file.createNewFile();
                 rnd = new RandomAccessFile(file, "rw");
                 fc = rnd.getChannel();
-                long size = 1048576; // 1M
+                long size = 4 * 1024 * 1024; // 4M
                 while (true) {
                     if (createdSize > fileSize) {
                         createdSize = fileSize;

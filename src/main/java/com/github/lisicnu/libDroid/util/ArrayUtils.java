@@ -1,5 +1,7 @@
 package com.github.lisicnu.libDroid.util;
 
+import com.github.lisicnu.log4android.LogManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

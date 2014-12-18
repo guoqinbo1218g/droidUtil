@@ -5,18 +5,25 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.webkit.URLUtil;
 
-import com.github.lisicnu.libDroid.util.MiscUtils;
-import com.github.lisicnu.libDroid.util.StringUtils;
-import com.github.lisicnu.log4android.LogManager;
 import com.github.lisicnu.libDroid.util.BitmapUtils;
 import com.github.lisicnu.libDroid.util.FileUtils;
+import com.github.lisicnu.libDroid.util.MiscUtils;
+import com.github.lisicnu.libDroid.util.StringUtils;
 import com.github.lisicnu.libDroid.util.URLUtils;
+import com.github.lisicnu.log4android.LogManager;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -318,7 +325,7 @@ public final class BitmapCacheLoader {
         boolean loadFinished = false;
         boolean stopLoading = false;
         boolean isLoading = false;
-        HttpURLConnection http = null;
+        HttpClient client = null;
         int reqWidth, reqHeight;
         private String tmpDirectory;
 
@@ -346,9 +353,9 @@ public final class BitmapCacheLoader {
         void stopLoading() {
             stopLoading = true;
 
-            if (http != null) {
-                http.disconnect();
-                http = null;
+            if (client != null) {
+                client.getConnectionManager().shutdown();
+                client = null;
             }
         }
 
@@ -363,24 +370,26 @@ public final class BitmapCacheLoader {
                 InputStream bitmapIs = null;
                 FileOutputStream fos = null;
                 Bitmap bitmap = null;
-
+                HttpClient client = null;
                 try {
 
                     Thread.sleep(500);
                     if (stopLoading)
                         return;
 
-                    http = URLUtils.getNormalCon(imageUrl);
-//                    http.setRequestProperty("Connection", "Keep-Alive");
-                    http.setConnectTimeout(5000);
-                    http.setReadTimeout(10000);
-                    http.connect();
+                    HttpParams httpParameters = new BasicHttpParams();
+                    HttpConnectionParams.setConnectionTimeout(httpParameters, 5000);
+                    HttpConnectionParams.setSoTimeout(httpParameters, 10000);
+                    client = new DefaultHttpClient(httpParameters);
+
+                    HttpGet httpGet = new HttpGet(imageUrl);
 
                     if (stopLoading) {
                         return;
                     }
 
-                    bitmapIs = http.getInputStream();
+                    HttpResponse response = client.execute(httpGet);
+                    bitmapIs = response.getEntity().getContent();
 
                     if (reqWidth > 0 && reqHeight > 0)
                         bitmap = BitmapUtils.load(bitmapIs, reqWidth, reqHeight);
@@ -430,9 +439,9 @@ public final class BitmapCacheLoader {
                         }
                         bitmapIs = null;
                     }
-                    if (http != null) {
-                        http.disconnect();
-                        http = null;
+                    if (client != null) {
+                        client.getConnectionManager().shutdown();
+                        client = null;
                     }
                     if (fos != null) {
                         try {

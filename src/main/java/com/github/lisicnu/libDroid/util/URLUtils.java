@@ -1,11 +1,7 @@
 package com.github.lisicnu.libDroid.util;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
@@ -18,7 +14,7 @@ import java.net.URLEncoder;
  * Version: 1.0 <p/>
  */
 public final class URLUtils {
-    public final static String ACCEPT_IMAGE = "image/gif, image/jpeg, image/pjpeg, image/pjpeg";
+//    public final static String ACCEPT_IMAGE = "image/gif, image/jpeg, image/pjpeg, image/pjpeg";
 
     public static String analysisFileName(String url) {
         if (StringUtils.isNullOrEmpty(url))
@@ -39,44 +35,6 @@ public final class URLUtils {
             }
         }
         return result;
-    }
-
-    /**
-     * 获取默认的http连接信息
-     */
-    public static HttpURLConnection getNormalCon(String url) throws MalformedURLException,
-            IOException {
-
-        return getNormalCon(url, false);
-    }
-
-    public static HttpURLConnection getNormalCon(String url, boolean usePost)
-            throws MalformedURLException, IOException {
-
-        HttpURLConnection conn = null;
-
-        conn = (HttpURLConnection) (new URL(url)).openConnection();
-        conn.setConnectTimeout(10 * 1000);
-        conn.setReadTimeout(30 * 1000);
-        conn.setRequestMethod(usePost ? "POST" : "GET");
-        conn.setUseCaches(false);
-        conn.setRequestProperty("Accept", "*/*");
-        // conn.setRequestProperty(
-        // "Accept",
-        // "image/gif, image/jpeg, image/pjpeg, image/pjpeg,
-        // application/x-shockwave-flash, application/xaml+xml,
-        // application/vnd.ms-xpsdocument,
-        // application/x-ms-xbap, application/x-ms-application,
-        // application/vnd.ms-excel,
-        // application/vnd.ms-powerpoint, application/msword, */*");
-        // conn.setRequestProperty("Accept-Language", "zh-CN,en-US");
-        conn.setRequestProperty("Referer", url);
-        conn.setRequestProperty("Charset", "UTF-8");
-        conn.setRequestProperty(
-                "User-Agent",
-                "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)");
-
-        return conn;
     }
 
     /**
@@ -131,38 +89,77 @@ public final class URLUtils {
         return tmp;
     }
 
-    /**
-     * 获取当前 URL 地址是否能够联通
-     *
-     * @param url
-     * @return
-     */
-    public static synchronized boolean canConnect(String url) {
-        boolean result = false;
-        HttpURLConnection conn = null;
-        try {
-            conn = getNormalCon(formatUrl(url));
-            conn.connect();
-
-            int resultCode = conn.getResponseCode();
-            result = (200 == resultCode);
-
-                /*
-            if (!result) {
-                LogManager.d("canConnect", resultCode + "|" + url);
-            }
-            // */
-
-        } catch (IOException e) {
-            result = false;
-//            LogManager.e("canConnect", url + "|error:" + e.toString());
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
-            }
-        }
-
-        return result;
-    }
+//
+//    /**
+//     * 获取默认的http连接信息
+//     */
+//    public static HttpURLConnection getNormalCon(String url) throws MalformedURLException,
+//            IOException {
+//
+//        return getNormalCon(url, false);
+//    }
+//
+//    public static HttpURLConnection getNormalCon(String url, boolean usePost)
+//            throws MalformedURLException, IOException {
+//
+//        HttpURLConnection conn = null;
+//
+//        conn = (HttpURLConnection) (new URL(url)).openConnection();
+//        conn.setConnectTimeout(10 * 1000);
+//        conn.setReadTimeout(30 * 1000);
+//        conn.setRequestMethod(usePost ? "POST" : "GET");
+//        conn.setUseCaches(false);
+//        conn.setRequestProperty("Accept", "*/*");
+//        // conn.setRequestProperty(
+//        // "Accept",
+//        // "image/gif, image/jpeg, image/pjpeg, image/pjpeg,
+//        // application/x-shockwave-flash, application/xaml+xml,
+//        // application/vnd.ms-xpsdocument,
+//        // application/x-ms-xbap, application/x-ms-application,
+//        // application/vnd.ms-excel,
+//        // application/vnd.ms-powerpoint, application/msword, */*");
+//        // conn.setRequestProperty("Accept-Language", "zh-CN,en-US");
+////        conn.setRequestProperty("Referer", url);
+//        conn.setRequestProperty("Charset", "UTF-8");
+//        conn.setRequestProperty(
+//                "User-Agent",
+//                "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)");
+//
+//        return conn;
+//    }
+//
+//    /**
+//     * 获取当前 URL 地址是否能够联通
+//     *
+//     * @param url
+//     * @return
+//     */
+//    public static synchronized boolean canConnect(String url) {
+//        boolean result = false;
+//        HttpURLConnection conn = null;
+//        try {
+//            conn = getNormalCon(formatUrl(url));
+//            conn.connect();
+//
+//            int resultCode = conn.getResponseCode();
+//            result = (200 == resultCode);
+//
+//                /*
+//            if (!result) {
+//                LogManager.d("canConnect", resultCode + "|" + url);
+//            }
+//            // */
+//
+//        } catch (IOException e) {
+//            result = false;
+////            LogManager.e("canConnect", url + "|error:" + e.toString());
+//        } finally {
+//            if (conn != null) {
+//                conn.disconnect();
+//            }
+//        }
+//
+//        return result;
+//    }
 
 }
