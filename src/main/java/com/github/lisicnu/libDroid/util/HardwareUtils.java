@@ -3,8 +3,7 @@ package com.github.lisicnu.libDroid.util;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -103,7 +102,7 @@ public class HardwareUtils {
             mac = wifi.getMacAddress();
         } catch (Exception e) {
             mac = null;
-            LogManager.e(TAG, e.toString());
+            Log.e(TAG, "", e);
         }
 
         if (StringUtils.isNullOrEmpty(mac))
@@ -138,7 +137,7 @@ public class HardwareUtils {
             x = Integer.parseInt(field.get(obj).toString());
             statusBarHeight = context.getResources().getDimensionPixelSize(x);
         } catch (Exception e1) {
-            LogManager.e(TAG, e1);
+            Log.e(TAG, "", e1);
         }
         return statusBarHeight;
     }

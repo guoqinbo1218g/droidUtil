@@ -14,10 +14,9 @@ import android.widget.EditText;
  */
 public class KeyboardUtils {
     /**
-     * 打卡软键盘
      *
-     * @param mEditText 输入框
-     * @param mContext  上下文
+     * @param mEditText
+     * @param mContext
      */
     public static void openKeyboard(EditText mEditText, Context mContext) {
         if (mContext == null || mEditText == null) return;
@@ -29,10 +28,9 @@ public class KeyboardUtils {
     }
 
     /**
-     * 关闭软键盘
      *
-     * @param mEditText 输入框
-     * @param mContext  上下文
+     * @param mEditText
+     * @param mContext
      */
     public static void closeKeyboard(EditText mEditText, Context mContext) {
         if (mContext == null || mEditText == null) return;

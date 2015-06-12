@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.util.Log;
 
 import com.github.lisicnu.libDroid.io.FlushedInputStream;
-import com.github.lisicnu.log4android.LogManager;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -44,7 +44,7 @@ public final class BitmapUtils {
 
             return load(new FileInputStream(path), -1, -1);
         } catch (Exception e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
             return null;
         }
     }
@@ -64,7 +64,7 @@ public final class BitmapUtils {
 
             return load(new BufferedInputStream(new FileInputStream(path)), width, height);
         } catch (Exception e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
             return null;
         }
     }
@@ -135,7 +135,7 @@ public final class BitmapUtils {
 
             return BitmapFactory.decodeStream(new FlushedInputStream(is), null, opt);
         } catch (Exception e) {
-            LogManager.e(TAG, e.toString());
+            Log.e(TAG, "", e);
             return null;
         } finally {
             if (is != null) {
@@ -162,7 +162,7 @@ public final class BitmapUtils {
         try {
             return load(context.getResources().openRawResource(resId), -1, -1);
         } catch (Exception e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
             return null;
         }
 
@@ -179,7 +179,7 @@ public final class BitmapUtils {
         try {
             return load(context.getResources().openRawResource(resId), width, height);
         } catch (Exception e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
             return null;
         }
     }

@@ -9,8 +9,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.lisicnu.libDroid.R;
 import com.github.lisicnu.libDroid.util.MiscUtils;
-import com.github.lisicnu.log4android.LogManager;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,8 +20,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.github.lisicnu.libDroid.R;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告
@@ -40,7 +38,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private Context mContext;
     private Map<String, String> infos = new HashMap<String, String>();
 
-    private CrashHandler() {
+    protected CrashHandler() {
     }
 
     public static CrashHandler getInstance() {
@@ -96,7 +94,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             infos.put("MANUFACTURER", Build.MANUFACTURER);
         }
         String errorMsg = getErrorMessage(ex);
-        LogManager.e("", errorMsg);
+        Log.e("", errorMsg);
 
         return true;
     }

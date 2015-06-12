@@ -2,8 +2,7 @@ package com.github.lisicnu.libDroid.util;
 
 import android.os.Environment;
 import android.os.StatFs;
-
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.io.File;
 
@@ -42,7 +41,7 @@ public final class StorageUtils {
             StatFs stat = new StatFs(dir.toString());
             return stat.getAvailableBlocks() * (long) stat.getBlockSize();
         } catch (Exception e) {
-            LogManager.i(TAG, "Fail to access external storage," + e.toString());
+            Log.i(TAG, "Fail to access external storage," + e.toString());
         }
         return UNKNOWN_SIZE;
     }

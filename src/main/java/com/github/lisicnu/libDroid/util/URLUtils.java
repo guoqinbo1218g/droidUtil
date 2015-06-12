@@ -146,13 +146,13 @@ public final class URLUtils {
 //
 //                /*
 //            if (!result) {
-//                LogManager.d("canConnect", resultCode + "|" + url);
+//                Log.d("canConnect", resultCode + "|" + url);
 //            }
 //            // */
 //
 //        } catch (IOException e) {
 //            result = false;
-////            LogManager.e("canConnect", url + "|error:" + e.toString());
+////            Log.e("canConnect", url + "|error:" + e.toString());
 //        } finally {
 //            if (conn != null) {
 //                conn.disconnect();

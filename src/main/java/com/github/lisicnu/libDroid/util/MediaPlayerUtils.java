@@ -1,8 +1,7 @@
 package com.github.lisicnu.libDroid.util;
 
 import android.media.MediaPlayer;
-
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,7 +27,7 @@ public final class MediaPlayerUtils {
                 player.stop();
 
         } catch (Exception e) {
-            LogManager.e(TAG, e.toString());
+            Log.e(TAG, "", e);
         }
     }
 
@@ -81,7 +80,7 @@ public final class MediaPlayerUtils {
             }
 
         } catch (Exception e) {
-            LogManager.e(TAG, e.toString());
+            Log.e(TAG, "", e);
         } finally {
             if (fis != null) {
                 try {

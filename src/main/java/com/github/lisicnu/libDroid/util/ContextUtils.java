@@ -3,8 +3,7 @@ package com.github.lisicnu.libDroid.util;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
-
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -67,7 +66,7 @@ public final class ContextUtils {
             }
 
         } catch (IOException e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
 
             result = COPY_ERROR;
         } finally {

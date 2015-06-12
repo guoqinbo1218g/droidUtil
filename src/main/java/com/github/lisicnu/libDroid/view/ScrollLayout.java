@@ -9,8 +9,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-import com.github.lisicnu.log4android.LogManager;
-
 /**
  * 仿Launcher中的WorkSpace，可以左右滑动切换屏幕的类,
  * <not>not full tested.</not>
@@ -85,7 +83,7 @@ public class ScrollLayout extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        // LogManager.dd(TAG, "onMeasure");
+        // Log.dd(TAG, "onMeasure");
 
         final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         if (widthMode != MeasureSpec.EXACTLY) {
@@ -103,7 +101,7 @@ public class ScrollLayout extends ViewGroup {
             getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
         }
 
-        // LogManager.dd(TAG, "moving to screen " + mCurScreen);
+        // Log.dd(TAG, "moving to screen " + mCurScreen);
         final int width = MeasureSpec.getSize(widthMeasureSpec);
         scrollTo(mCurScreen * width, 0);
     }
@@ -154,7 +152,7 @@ public class ScrollLayout extends ViewGroup {
             postInvalidate();
         }
 
-        // LogManager.dd(TAG, "computeScrollOffset : " +
+        // Log.dd(TAG, "computeScrollOffset : " +
         // (System.currentTimeMillis() - tmp));
     }
 
@@ -168,7 +166,7 @@ public class ScrollLayout extends ViewGroup {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                // LogManager.dd(TAG, "event down!");
+                // Log.dd(TAG, "event down!");
 
                 addToTracker(event);
 
@@ -189,7 +187,7 @@ public class ScrollLayout extends ViewGroup {
                 break;
 
             case MotionEvent.ACTION_UP:
-                LogManager.d(TAG, "event : up");
+//                Log.d(TAG, "event : up");
 
                 addToTracker(event);
 
@@ -197,15 +195,15 @@ public class ScrollLayout extends ViewGroup {
                 final VelocityTracker velocityTracker = mVelocityTracker;
                 velocityTracker.computeCurrentVelocity(1000);
                 int velocityX = (int) velocityTracker.getXVelocity();
-                // LogManager.dd(TAG, "velocityX:" + velocityX);
+                // Log.dd(TAG, "velocityX:" + velocityX);
 
                 if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {
                     // Fling enough to move left
-                    // LogManager.dd(TAG, "snap left");
+                    // Log.dd(TAG, "snap left");
                     snapToScreen(mCurScreen - 1);
                 } else if (velocityX < -SNAP_VELOCITY && mCurScreen < getChildCount() - 1) {
                     // Fling enough to move right
-                    // LogManager.dd(TAG, "snap right");
+                    // Log.dd(TAG, "snap right");
                     snapToScreen(mCurScreen + 1);
 
                 } else {
@@ -236,7 +234,7 @@ public class ScrollLayout extends ViewGroup {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // TODO Auto-generated method stub
-        // LogManager.dd(TAG, "onInterceptTouchEvent-slop:" + mTouchSlop +
+        // Log.dd(TAG, "onInterceptTouchEvent-slop:" + mTouchSlop +
         // " action=" + ev.getAction()
         // + " mTouchState=" + mTouchState);
 
@@ -267,7 +265,7 @@ public class ScrollLayout extends ViewGroup {
                 mTouchState = TOUCH_STATE_REST;
                 break;
         }
-        // LogManager.dd(TAG, "onInterceptTouchEvent  mTouchState=" +
+        // Log.dd(TAG, "onInterceptTouchEvent  mTouchState=" +
         // mTouchState);
 
         return mTouchState != TOUCH_STATE_REST;

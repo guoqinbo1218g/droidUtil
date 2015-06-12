@@ -3,8 +3,7 @@ package com.github.lisicnu.libDroid.util;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
-
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -54,7 +53,7 @@ public final class SoundPoolUtils {
             }
 
         } catch (Exception ex) {
-            LogManager.e(getClass().getName(), ex.toString());
+            Log.e(TAG, "", ex);
         }
     }
 
@@ -93,7 +92,7 @@ public final class SoundPoolUtils {
             soundPool.play(soundId, 1, 1, 1, 0, 1);
             lastSoundId = soundId;
         } else {
-            LogManager.e(TAG, "Play sound: resource not found in soundMap");
+            Log.e(TAG, "Play sound: resource not found in soundMap");
         }
     }
 

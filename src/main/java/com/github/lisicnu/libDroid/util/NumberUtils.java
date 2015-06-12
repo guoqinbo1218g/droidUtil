@@ -1,6 +1,6 @@
 package com.github.lisicnu.libDroid.util;
 
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 /**
  * <p/>
@@ -48,7 +48,7 @@ public final class NumberUtils {
      */
     public static boolean isNumberic(Object obj) {
         if (obj == null) {
-            LogManager.e("isNumeric", "parameter can't be null.");
+            Log.e("isNumeric", "parameter can't be null.");
             return false;
         }
 
@@ -63,7 +63,7 @@ public final class NumberUtils {
 
     public static boolean isInt(Object obj) {
         if (obj == null) {
-            LogManager.e("isNumeric", "parameter can't be null.");
+            Log.e("isNumeric", "parameter can't be null.");
             return false;
         }
 

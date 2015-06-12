@@ -2,9 +2,8 @@ package com.github.lisicnu.libDroid.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import com.github.lisicnu.libDroid.R;
 import com.github.lisicnu.libDroid.util.ContextUtils;
 import com.github.lisicnu.libDroid.util.StringUtils;
-import com.github.lisicnu.log4android.LogManager;
 
 import java.lang.ref.WeakReference;
 
@@ -196,85 +194,15 @@ public abstract class BaseActivity extends Activity {
         this.exitMode = exitMode;
     }
 
-
-    private void log(String msg) {
-        LogManager.d("lifeStatus", getClass().getSimpleName() + "  " + msg);
-    }
-
-    /**
-     * 配置日志文件信息, 如果需要程序自己配置, 覆盖这个方法, 如果不设置此方法 直接调用, 则会输出到LOGCAT 中.
-     */
-    protected void configLog() {
-        LogManager.init(getApplicationContext());
-        LogManager.getLogger().setClientID(getPackageName());
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (ContextUtils.isLauncherActivity(getIntent())) {
-            configLog();
             setExitMode(ExitMode.DoubleClick);
         } else {
             setExitMode(ExitMode.Default);
         }
 
         super.onCreate(savedInstanceState);
-
-        log("onCreate");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        log("onSaveInstanceState");
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        log("onConfigurationChanged");
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        log("onNewIntent");
-        super.onNewIntent(intent);
-    }
-
-    @Override
-    protected void onDestroy() {
-        log("onDestroy");
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        log("onPause");
-        super.onPause();
-    }
-
-    @Override
-    protected void onRestart() {
-        log("onRestart");
-        super.onRestart();
-    }
-
-    @Override
-    protected void onResume() {
-        log("onResume");
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        log("onStart");
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        log("onStop");
-        super.onStop();
     }
 
     private class InnerHandler extends Handler {
@@ -292,9 +220,7 @@ public abstract class BaseActivity extends Activity {
 
             switch (msg.what) {
                 case MSG_SHOW_TOAST:
-                    if (msg.obj != null && !StringUtils.isNullOrEmpty(msg.obj.toString())) {
-                        Toast.makeText(tmp, msg.obj.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                    handlerShowToast(tmp, msg.obj);
                     break;
                 case MSG_ENABLE_VIEWS:
                     tmp.setViewsEnability(msg.arg1 == 0);
@@ -303,6 +229,12 @@ public abstract class BaseActivity extends Activity {
                     tmp.handleHandlerMessage(msg);
                     break;
             }
+        }
+    }
+
+    protected void handlerShowToast(Context context, Object obj) {
+        if (context != null && obj != null && !StringUtils.isNullOrEmpty(obj.toString())) {
+            Toast.makeText(context, obj.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.github.lisicnu.libDroid.util;
 
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -202,7 +202,7 @@ public final class FileUtils {
      */
     public static int createNewFile(File file, long fileSize) {
         if (fileSize < 0) {
-            LogManager.e(TAG, "createNewFile invalid fileSize=" + fileSize);
+            Log.e(TAG, "createNewFile invalid fileSize=" + fileSize);
             return CREATE_NEW_FILE_FAILED;
         }
 
@@ -251,8 +251,7 @@ public final class FileUtils {
                     Thread.sleep(40); // 防止创建文件太大, 导致磁盘卡死, 100ms
                 }
             } catch (Exception e) {
-                LogManager.e(TAG, "FileChannal to create new file failed: " + e.toString() + file
-                        .getAbsolutePath());
+                Log.e(TAG, "FileChannal to create new file failed: ", e);
                 if (file.length() < fileSize) {
                     try {
                         file.createNewFile();
@@ -283,7 +282,7 @@ public final class FileUtils {
                 retVal = CREATE_NEW_FILE_FAILED;
             }
         } catch (Exception e) {
-            LogManager.e(TAG, new StringBuilder("create file error.").append(file.getAbsolutePath())
+            Log.e(TAG, new StringBuilder("create file error.").append(file.getAbsolutePath())
                     .append(": ").append(e.toString()).toString());
 
             retVal = CREATE_NEW_FILE_FAILED;
@@ -381,7 +380,7 @@ public final class FileUtils {
             buffer = null;
             result = true;
         } catch (IOException e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
         } finally {
             if (out != null) {
                 try {

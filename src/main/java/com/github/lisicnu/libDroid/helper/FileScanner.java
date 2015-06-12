@@ -1,9 +1,9 @@
 package com.github.lisicnu.libDroid.helper;
 
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.github.lisicnu.libDroid.util.MiscUtils;
-import com.github.lisicnu.log4android.LogManager;
 
 import java.io.File;
 
@@ -165,7 +165,7 @@ public final class FileScanner {
                 }
             }
         } catch (Exception e) {
-            LogManager.e(TAG, e.toString());
+            Log.e(TAG, "", e);
         }
 
     }

@@ -2,7 +2,9 @@ package com.github.lisicnu.libDroid.helper;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.URLUtil;
 
 import com.github.lisicnu.libDroid.util.BitmapUtils;
@@ -10,7 +12,6 @@ import com.github.lisicnu.libDroid.util.FileUtils;
 import com.github.lisicnu.libDroid.util.MiscUtils;
 import com.github.lisicnu.libDroid.util.StringUtils;
 import com.github.lisicnu.libDroid.util.URLUtils;
-import com.github.lisicnu.log4android.LogManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -69,7 +70,7 @@ public final class BitmapCacheLoader {
 
     private static String fixTempPath(String tmpDirectory) {
         if (tmpDirectory == null || tmpDirectory.isEmpty()) {
-            File fi = new File("mnt/sdcard/cache/");
+            File fi = new File(Environment.getExternalStorageDirectory(), "cache");
             fi.mkdirs();
             return fi.getPath();
         }
@@ -131,7 +132,7 @@ public final class BitmapCacheLoader {
 
         // STEP 4.
         if (!URLUtil.isValidUrl(fileName)) {
-            // LogManager.i(TAG, "File not found and isn't a valid URL." +
+            // Log.i(TAG, "File not found and isn't a valid URL." +
             // fileName);
             return null;
         }
@@ -365,7 +366,7 @@ public final class BitmapCacheLoader {
             @Override
             public void run() {
 
-                LogManager.d(TAG, "Loading Runnable starting....." + imageUrl);
+                Log.d(TAG, "Loading Runnable starting....." + imageUrl);
                 isLoading = true;
                 InputStream bitmapIs = null;
                 FileOutputStream fos = null;
@@ -414,7 +415,7 @@ public final class BitmapCacheLoader {
                         try {
                             bitmapFile.createNewFile();
                         } catch (IOException e) {
-                            LogManager.e(TAG, e);
+                            Log.e(TAG, "", e);
                         }
                     }
 
@@ -429,13 +430,13 @@ public final class BitmapCacheLoader {
                         fos = null;
                     }
                 } catch (Exception e) {
-                    LogManager.e(TAG, e);
+                    Log.e(TAG, "", e);
                 } finally {
                     if (bitmapIs != null) {
                         try {
                             bitmapIs.close();
                         } catch (IOException e) {
-                            LogManager.e(TAG, e);
+                            Log.e(TAG,"", e);
                         }
                         bitmapIs = null;
                     }
@@ -447,7 +448,7 @@ public final class BitmapCacheLoader {
                         try {
                             fos.close();
                         } catch (IOException e) {
-                            LogManager.e(TAG, e);
+                            Log.e(TAG, "", e);
                         }
                         fos = null;
                     }

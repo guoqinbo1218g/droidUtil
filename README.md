@@ -9,11 +9,11 @@ droidUtil
 
 ##gradle使用说明##
 
-compile 'com.github.lisicnu:droidUtil:0.1.3'
+compile 'com.github.lisicnu:droidUtil:0.1.4'
 
 内部已经自动引用
 
-// compile 'com.github.lisicnu:log4android:1.0.1'
+// compile 'com.github.lisicnu:log4android:1.0.3'
 
 这是一个工具包, 包含一些常用的工具类.
 

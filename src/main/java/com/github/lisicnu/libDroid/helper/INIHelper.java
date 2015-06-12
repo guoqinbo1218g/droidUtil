@@ -1,6 +1,6 @@
 package com.github.lisicnu.libDroid.helper;
 
-import com.github.lisicnu.log4android.LogManager;
+import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,13 +30,13 @@ public final class INIHelper {
             if (file.isFile() && !file.exists())
                 file.createNewFile();
         } catch (Exception e) {
-            LogManager.e(TAG, e);
+            Log.e(TAG, "", e);
         }
 
         try {
             ini.load(new FileInputStream(file));
         } catch (IOException e) {
-            LogManager.e(TAG, e.toString());
+            Log.e(TAG, "", e);
         }
 
     }
@@ -78,7 +78,7 @@ public final class INIHelper {
             fw.close();
             fw = null;
         } catch (Exception ex) {
-            LogManager.e(TAG, ex);
+            Log.e(TAG, "", ex);
         } finally {
             if (bw != null) {
                 try {
